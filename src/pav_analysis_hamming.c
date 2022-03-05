@@ -15,7 +15,7 @@ float hamming(float *w, unsigned int N) {
     float energy = 0.0f;
     for (int i = 0; i < N; i++) {
         w[i] = 0.54 - (0.46 * cosf((2 * M_PI * i) / N));
-        energy += powf(w[i], 2);
+        energy += w[i]*w[i];
     }
 
     return energy;
@@ -27,7 +27,7 @@ float compute_power(const float *x, const float *w, unsigned int N, unsigned int
 
     // Calculamos los sumatorios
     for (int j = 0; j < N; j++) {
-        power += powf(x[j] * w[j], 2);
+        power += (x[j] * w[j]) * (x[j] * w[j]);
     }
     
     // Potencia media en dB
