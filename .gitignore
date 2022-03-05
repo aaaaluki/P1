@@ -3,6 +3,7 @@
 
 # Codigo compilado
 p1
+p1_hamming
 src/*.o
 
 # Ficheros generados
