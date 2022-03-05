@@ -21,7 +21,7 @@ float hamming(float *w, unsigned int N) {
     return energy;
 }
 
-float compute_power(const float *x, const float *w, unsigned int N, unsigned int M, int trm, float ew) {
+float compute_power(const float *x, const float *w, unsigned int N, float ew) {
     // Valor para que la pot. mínima sea -120 dB (consejo para la P2)
     float power = 1.e-12;
 
