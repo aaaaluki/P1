@@ -16,22 +16,25 @@ int main(int argc, char *argv[]) {
     FILE *fpWave;
     FILE *fpOut = stdout;
 
-    if (argc != 2 && argc != 3) {
-        fprintf(stderr, "Empleo: %s inputfile [outputfile]\n", argv[0]);
-        return -1;
-    }
-
-    if ((fpWave = abre_wave(argv[1], &fm)) == NULL) {
-        fprintf(stderr, "Error al abrir el fichero WAVE de entrada %s (%s)\n", argv[1], strerror(errno));
-        return -1;
-    }
-
-    if (argc == 3)
-    {
+    switch (argc) {
+    case 3:
         if ((fpOut = fopen(argv[2], "w")) == NULL ) {
             fprintf(stderr, "Error al abrir el archivo de salida %s (%s)\n", argv[2], strerror(errno));
             return -1;
         }
+        // El break no esta a proposito, asi despues de abrir el de salida
+        // intentara abrir el de entrada
+
+    case 2:
+        if ((fpWave = abre_wave(argv[1], &fm)) == NULL) {
+            fprintf(stderr, "Error al abrir el fichero WAVE de entrada %s (%s)\n", argv[1], strerror(errno));
+            return -1;
+        }
+        break;
+    
+    default:
+        fprintf(stderr, "Empleo: %s inputfile [outputfile]\n", argv[0]);
+        return -1;
     }
     
     N = durTrm * fm;
