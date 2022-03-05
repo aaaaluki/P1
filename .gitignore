@@ -1,0 +1,11 @@
+# Configuracion de VSCode
+.vscode/
+
+# Codigo compilado
+p1
+src/*.o
+
+# Ficheros generados
+src/*.csv
+src/*.png
+src/*.tsv
