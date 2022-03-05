@@ -1,4 +1,5 @@
 #include <math.h>
+
 #include "pav_analysis.h"
 
 /**
@@ -10,10 +11,11 @@
 #define SGN(x) ((x > 0) ? 1 : ((x < 0) ? -1 : 0))
 
 float compute_power(const float *x, unsigned int N) {
-    float power = 1.0e-12f;
+    // Valor para que la pot. mínima sea -120 dB (consejo para la P2)
+    float power = 1.e-12;
 
     for (int i = 0; i < N; i++) {
-        power += x[i]*x[i];
+        power += powf(x[i], 2);
     }
 
     return 10*log10f(power / N);
@@ -30,8 +32,8 @@ float compute_am(const float *x, unsigned int N) {
 }
 
 float compute_zcr(const float *x, unsigned int N, float fm) {
+    const float scaling = 0.5f * fm / (N - 1);
     float zcr = 0.0f;
-    const float scaling = fm / (2*(N - 1));
 
     for (int i = 1; i < N; i++) {
         if (SGN(x[i]) != SGN(x[i - 1])) {

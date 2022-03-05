@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+
 #include "pav_analysis.h"
 #include "fic_wave.h"
 
@@ -9,8 +10,7 @@
 int main(int argc, char *argv[]) {
     float durTrm = 0.010;
     float fm;
-    int N;
-    int trm;
+    int N, trm;
     float *x;
     short *buffer;
     FILE *fpWave;
@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 
     switch (argc) {
     case 3:
-        if ((fpOut = fopen(argv[2], "w")) == NULL ) {
+        if ((fpOut = fopen(argv[2], "w")) == NULL) {
             fprintf(stderr, "Error al abrir el archivo de salida %s (%s)\n", argv[2], strerror(errno));
             return -1;
         }
@@ -44,9 +44,10 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    // mientras leamos N elementos
     trm = 0;
     while (lee_wave(buffer, sizeof(*buffer), N, fpWave) == N) {
-        for (int n = 0; n < N; n++) x[n] = buffer[n] / (float) (1 << 15);
+        for (int n = 0; n < N; n++) x[n] = (float)buffer[n] / (1 << 15);
 
         fprintf(fpOut, "%d\t%f\t%f\t%f\n", trm, compute_power(x,N), compute_am(x,N), compute_zcr(x,N,fm));
         trm += 1;
