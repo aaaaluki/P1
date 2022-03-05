@@ -41,7 +41,7 @@ def error(msg: str, print_usage: bool =False) -> None:
 
 # Prints explains how to use the script, kinda...
 def usage() -> None:
-    print('Usage: python {} {{generate|plot}} [csv_file]'.format(sys.argv[0]))
+    print('Usage: python {} {{generate|plot}} [csv_file ...]'.format(sys.argv[0]))
 
 
 # Parse given arguments and set settings (command, filename)
@@ -59,7 +59,7 @@ def setup(args: List[str]) -> Tuple[ArgType, str]:
         if len(args) < 3:
             error('CSV file needed for plotting!')
 
-        return (ArgType.PLOT, args[2])
+        return (ArgType.PLOT, args[2:])
 
     elif args[1] == 'help':
         usage()
@@ -153,16 +153,15 @@ def plotter(filename: str) -> None:
     plt.savefig(savefile, dpi=300)
     info('Plot saved as {}'.format(savefile))
 
-    # Display plot
-    plt.show()
-
 
 # Main
 def main(args: Tuple[ArgType, str]) -> None:
     if args[0] == ArgType.GEN_SAMPLE:
         gen_sample_file(args[1])
     elif args[0] == ArgType.PLOT:
-        plotter(args[1])
+        for file in args[1]:
+            plotter(file)
+        plt.show()
 
 
 if __name__ == '__main__':
