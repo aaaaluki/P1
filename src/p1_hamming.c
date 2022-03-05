@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
             x[n] = (float) buffer[n] / (1 << 15); // ahora normalizamos valores del buffer y los asignamos a x
         }
 
-        fprintf(fpOut, "%d\t%f\t%f\t%f\n", trm, compute_power(x,w,N,M,trm,wEg), compute_am(x,N), compute_zcr(x,N,fm));
+        fprintf(fpOut, "%d\t%f\t%f\t%f\n", trm, compute_power(x,w,N,wEg), compute_am(x,N), compute_zcr(x,N,fm));
         trm += 1;
     }
 
