@@ -7,7 +7,8 @@ p1_hamming
 src/*.o
 
 # Ficheros generados
-src/*.csv
-src/*.png
-src/*.pwr
-src/*.tsv
+*.csv
+*.png
+*.pwr
+*.tsv
+*.txt
