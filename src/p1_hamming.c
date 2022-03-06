@@ -19,7 +19,8 @@ int main(int argc, char *argv[]) {
     switch (argc) {
     case 3:
         if ((fpOut = fopen(argv[2], "w")) == NULL ) {
-            fprintf(stderr, "Error al abrir el archivo de salida %s (%s)\n", argv[2], strerror(errno));
+            fprintf(stderr, "Error al abrir el archivo de salida %s (%s)\n",
+                    argv[2], strerror(errno));
             return -1;
         }
         // El break no esta a proposito, asi despues de abrir el fichero de
@@ -27,7 +28,8 @@ int main(int argc, char *argv[]) {
 
     case 2:
         if ((fpWave = abre_wave(argv[1], &fm)) == NULL) {
-            fprintf(stderr, "Error al abrir el fichero WAVE de entrada %s (%s)\n", argv[1], strerror(errno));
+            fprintf(stderr, "Error al abrir el fichero WAVE de entrada %s (%s)\n",
+                    argv[1], strerror(errno));
             return -1;
         }
         break;
@@ -44,7 +46,8 @@ int main(int argc, char *argv[]) {
     if ((buffer = calloc(N, sizeof(*buffer))) == 0 ||
         (x = malloc(N * sizeof(*x))) == 0 ||
         (w = malloc(N * sizeof(*w))) == 0) {
-        fprintf(stderr, "Error al ubicar los vectores (%s)\n", strerror(errno));
+        fprintf(stderr, "Error al ubicar los vectores (%s)\n",
+                strerror(errno));
         return -1;
     }
 
@@ -64,7 +67,8 @@ int main(int argc, char *argv[]) {
             x[n] = (float) buffer[n] / (1 << 15); // ahora normalizamos valores del buffer y los asignamos a x
         }
 
-        fprintf(fpOut, "%d\t%f\t%f\t%f\n", trm, compute_power(x,w,N,wEg), compute_am(x,N), compute_zcr(x,N,fm));
+        fprintf(fpOut, "%d\t%f\t%f\t%f\n", trm, compute_power(x,w,N,wEg),
+                compute_am(x,N), compute_zcr(x,N,fm));
         trm += 1;
     }
 

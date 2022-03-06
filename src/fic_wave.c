@@ -18,8 +18,8 @@ FILE *abre_wave(const char *ficWave, float *fm) {
 
     // Leer la cabecera WAVE
     pwaveHeader = (WaveHeader_t *) malloc(sizeof(WaveHeader_t));
-    unsigned char buff4[4];
-    unsigned char buff2[2];
+    uint8_t buff4[4];
+    uint8_t buff2[2];
 
     // Leer el chunk RIFF
     fread(pwaveHeader->chunkID, sizeof(pwaveHeader->chunkID), 1, fpWave);
@@ -58,7 +58,7 @@ FILE *abre_wave(const char *ficWave, float *fm) {
     // Comprobar que la señal es como la que pide el ejercicio 1 de la
     // ampliación
     // Señal mono o estereo
-    if (pwaveHeader->numChannels > 2) {
+    if (pwaveHeader->numChannels > 2 || pwaveHeader->numChannels < 0) {
         fprintf(stderr, "[ERROR] El fichero debe ser estereo o mono\n");
         return NULL;
     }
